@@ -1,0 +1,4 @@
+3/23
+started working on project two a little late but started with the ArrayStack.h file
+worked on the returns for each of the functions and safety checks in the pop and top functions 
+added throw statements in the pop and top functions in case of an error with the stack being empty 
