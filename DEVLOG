@@ -7,3 +7,9 @@ added throw statements in the pop and top functions in case of an error with the
 started working on the cpp file and started with the tokenize section
 worked on the logic of checking digits, special characters, and spaces
 looked up some syntex like isdigit() to help with the logic 
+
+3/27
+worked on precedence and isValidPostfix
+worked out the logic of the isValidPostfix to where its n - k = 1
+n is the number of numbers and k is the number of operators
+if n - k != 1 its invalid and returns a false so there can't be too many or too little operands 
