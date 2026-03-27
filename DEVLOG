@@ -2,3 +2,8 @@
 started working on project two a little late but started with the ArrayStack.h file
 worked on the returns for each of the functions and safety checks in the pop and top functions 
 added throw statements in the pop and top functions in case of an error with the stack being empty 
+
+3/26
+started working on the cpp file and started with the tokenize section
+worked on the logic of checking digits, special characters, and spaces
+looked up some syntex like isdigit() to help with the logic 
