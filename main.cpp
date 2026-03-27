@@ -30,11 +30,11 @@ vector<Token> tokenize(const string& line) {
                 number += line[i];
                 i++;                                                //increment i so the loop doesn't loop forever
             }
-            tokens.push_back(Token(number));             //pushes number
+            tokens.push_back({number});               //pushes number
         }
         else {                                                      // the else acknowledges () and special characters like +-*/ and makes a token
             string s(1, line[i]);
-            tokens.push_back(Token(s));
+            tokens.push_back({s});
             i++;
         }
     }
@@ -50,6 +50,12 @@ bool isOperator(const string& s) {
 
 int precedence(const string& op) {
     // TODO
+    if (op == "+" || op == "-") {       //checks if operation is + or -
+        return 1;
+    }
+    if (op == "*" || op == "/") {       //checks if operation is * or /
+        return 2;
+    }
     return 0;
 }
 
@@ -57,7 +63,24 @@ int precedence(const string& op) {
 
 bool isValidPostfix(const vector<Token>& tokens) {
     // TODO
-    return false;
+    int stackSize = 0;
+
+    for (const auto& t : tokens) {
+        if (isdigit(t.value[0])) {                  //a number gets pushed to the stack
+            stackSize++;                            //increase stack size when valid operand is added
+        }
+        else if (isOperator(t.value)) {
+            if (stackSize < 2) {                    //checks if 2 operands are already on the stack
+                return false;
+                stackSize--;                        //reduce stack size if false isn't returned
+            }
+        }
+        else {
+            return false;                           //if it's not a number or an operator (invalid token) it returns false
+        }
+    }
+    return stackSize == 1;                          //stack must be 1 because a valid expression produces one final result; n - k = 1
+                                                    //EX) nums = 3 operators = 2;  123/* so this becomes 3-2=1
 }
 
 bool isValidInfix(const vector<Token>& tokens) {
