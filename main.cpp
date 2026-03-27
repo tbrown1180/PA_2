@@ -18,6 +18,26 @@ struct Token {
 
 vector<Token> tokenize(const string& line) {
     vector<Token> tokens;
+    int i = 0;
+
+    while (i < line.length()) {                                      //loops while i < the length of the line
+        if (isspace(line[i])) {                                      // if there is a space in the line increase i
+            i++;
+        }
+        else if (isdigit(line[i])) {                                 //checks if element at value i is a number
+            string number = "";
+            while (i < line.length() && isdigit(line[i])) {         //loops while i is < length of the line and is a number at that location
+                number += line[i];
+                i++;                                                //increment i so the loop doesn't loop forever
+            }
+            tokens.push_back(Token(number));             //pushes number
+        }
+        else {                                                      // the else acknowledges () and special characters like +-*/ and makes a token
+            string s(1, line[i]);
+            tokens.push_back(Token(s));
+            i++;
+        }
+    }
     // TODO
     return tokens;
 }
