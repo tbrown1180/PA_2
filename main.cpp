@@ -85,7 +85,44 @@ bool isValidPostfix(const vector<Token>& tokens) {
 
 bool isValidInfix(const vector<Token>& tokens) {
     // TODO
-    return false;
+    int balance = 0;                                //balance is used to keep track of the ( )
+    bool expectOperand = true;                      //keeps track of what should come after a ( , whether it's another ) or a number
+
+    for (const auto& t : tokens) {
+        if (isdigit(t.value[0])) {                  //a number is valid if expecting an operand
+            if (!expectOperand) {
+                return false;
+            }
+            expectOperand = false;
+        }
+        else if (t.value == "(") {                  //if ( is expected and is true increase balance
+            if (!expectOperand) {
+                return false;
+            }
+            balance++;
+        }
+        else if (t.value == ")") {                  // ) can only come after an operand and if true decrease balance
+            if (expectOperand) {
+                return false;
+            }
+            balance--;
+            if (balance < 0) {                      //if balance is < 0 then there are too many )
+                return false;
+            }
+            expectOperand = false;
+        }
+        else if (isOperator(t.value)) {             //operator must come after a number or ) and after operator expect operand
+            if (expectOperand) {
+                return false;
+            }
+            expectOperand = true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    return balance == 0 && !expectOperand;          //there is a right amount of () and ended on a number or )
 }
 
 // Conversion
