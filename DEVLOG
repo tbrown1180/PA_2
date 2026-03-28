@@ -13,3 +13,8 @@ worked on precedence and isValidPostfix
 worked out the logic of the isValidPostfix to where its n - k = 1
 n is the number of numbers and k is the number of operators
 if n - k != 1 its invalid and returns a false so there can't be too many or too little operands 
+
+3/28
+worked on isValidInfix
+worked out the logic of how to check the order of the string to make sure it is a proper statement 
+put in checks to make sure that the statement would look for specific characters after either numbers or operators ()*/
