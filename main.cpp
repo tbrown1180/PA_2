@@ -21,7 +21,7 @@ vector<Token> tokenize(const string& line) {
     int i = 0;
 
     while (i < line.length()) {                                      //loops while i < the length of the line
-        if (isspace(line[i])) {                                      // if there is a space in the line increase i
+        if (isspace(line[i])) {                                      //if there is a space in the line increase i
             i++;
         }
         else if (isdigit(line[i])) {                                 //checks if element at value i is a number
@@ -130,8 +130,41 @@ bool isValidInfix(const vector<Token>& tokens) {
 vector<Token> infixToPostfix(const vector<Token>& tokens) {
     vector<Token> output;
     // TODO
+    ArrayStack<string> opStack;
+
+    for (const auto& t : tokens) {
+        if (isdigit(t.value[0])) {                     //pushes if there's a digit
+            output.push_back(t);
+        }
+        else if (isOperator(t.value)) {                //checks the stack of operators and sees if there are others with equal or higher precedence and moves them to output first
+            while (!opStack.empty() && isOperator(opStack.top()) && precedence(opStack.top()) >= precedence(t.value)) {
+                output.push_back({opStack.top()});
+                opStack.pop();
+            }
+            opStack.push(t.value);                    //pushes the current operator with less precedence
+        }
+        else if (t.value == "(") {                    //if there's a ( push
+            opStack.push(t.value);
+        }
+        else if (t.value == ")") {                   //if there is a ) check if the stack is not empty and that the top isn't ( then pop  until the top is (
+            while (!opStack.empty() && opStack.top() != "(") {
+                output.push_back({opStack.top()});
+                opStack.pop();
+            }
+            if (!opStack.empty()) {
+                opStack.pop();                      //remove the ( because it is only needed for grouping
+            }
+        }
+    }
+
+    while (!opStack.empty()) {                     //removes remaining operators from the stack to output
+        output.push_back({opStack.top()});
+        opStack.pop();
+    }
+
     return output;
 }
+
 
 // Evaluation
 
