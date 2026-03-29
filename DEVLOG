@@ -18,3 +18,9 @@ if n - k != 1 its invalid and returns a false so there can't be too many or too 
 worked on isValidInfix
 worked out the logic of how to check the order of the string to make sure it is a proper statement 
 put in checks to make sure that the statement would look for specific characters after either numbers or operators ()*/
+
+3/29
+worked on the infixToPostfix
+worked on how to organize the statement into its correct order and to make sure that the precedence of the operations were applied 
+when moving things to output the final statement will ignore the () as they are not needed, they are only for grouping in this section 
+haven't started testing any outputs yet but will start that tomorrow as i work on the final section; hopfully i don't have too many broken sections or bugs
