@@ -72,8 +72,8 @@ bool isValidPostfix(const vector<Token>& tokens) {
         else if (isOperator(t.value)) {
             if (stackSize < 2) {                    //checks if 2 operands are already on the stack
                 return false;
-                stackSize--;                        //reduce stack size if false isn't returned
             }
+            stackSize--;                            //reduce stack size if false isn't returned
         }
         else {
             return false;                           //if it's not a number or an operator (invalid token) it returns false
@@ -171,7 +171,28 @@ vector<Token> infixToPostfix(const vector<Token>& tokens) {
 double evalPostfix(const vector<Token>& tokens) {
     ArrayStack<double> stack;
     // TODO
-    return 0.0;
+
+    for (const auto& t : tokens) {
+        if (isdigit(t.value[0])) {
+            stack.push(stod(t.value));
+        }
+        else if (isOperator(t.value)) {
+            double b = stack.top(); stack.pop();
+            double a = stack.top(); stack.pop();
+
+            double result = 0.0;
+
+            if (t.value == "+") result = a + b;
+            else if (t.value == "-") result = a - b;
+            else if (t.value == "*") result = a * b;
+            else if (t.value == "/") result = a / b;
+
+            stack.push(result);
+        }
+    }
+
+    return stack.top();
+
 }
 
 // Main
